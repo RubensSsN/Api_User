@@ -18,5 +18,4 @@ public class ErroDeFormularioDTO {
     public String getErro() {
         return erro;
     }
-
 }

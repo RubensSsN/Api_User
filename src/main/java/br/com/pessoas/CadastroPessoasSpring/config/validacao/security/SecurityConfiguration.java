@@ -21,7 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 //Cria o método de segurança que por estar @Configuration ele será lido ao iniciar a aplicação
 @EnableWebSecurity
 @Configuration
-@Profile("prod")
+@Profile(value = {"prod", "test"})
 public class SecurityConfiguration{
 
     @Autowired
@@ -58,7 +58,7 @@ public class SecurityConfiguration{
                 //Informa que qualquer outra requisição fora as outras citadas acima precisam de autenticação.
                 .anyRequest().authenticated()
                 //Desabilita o csrf, pois é bom para testes e com o meio de segurança que estamos usando não é nessário deixa-lo ativado.
-                .and().csrf().disable()
+                .and().csrf().disable().formLogin().disable().cors().disable()
                 //Está informando que o spring não é para ter sessões para cada usuario e sim que vai ser STATELESS para não ocupar muita memória
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 //Adiciona o filtro que tem que ser feito antes de rodar que no caso o tokenfilter vai rodar antes da autenticação do usuario sempre que acontecer cada requisição.
